@@ -1,7 +1,5 @@
 <!DOCTYPE HTML>
-
 <html>
-
 <head>
  <meta charset="UTF-8">
  <title>A U R A</title>
@@ -239,6 +237,7 @@ a{
     backdrop-filter: blur(14px) saturate(200%);
     -webkit-backdrop-filter: blur(14px) saturate(200%);
     border: 1px solid rgba(255,255,255,0.35);
+    cursor: pointer;
 }
 .glass-btn::before{
     content: "";
@@ -299,7 +298,7 @@ h1{
     justify-content: space-between;
     padding: 10px 14px;
     border-radius: 999px;
-    overflow: hidden;
+    overflow: visible;
     background: linear-gradient(160deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.03) 55%, rgba(255,255,255,0.09) 100%);
     backdrop-filter: blur(24px) saturate(220%) contrast(1.15) brightness(1.15);
     -webkit-backdrop-filter: blur(24px) saturate(220%) contrast(1.15) brightness(1.15);
@@ -333,6 +332,8 @@ h1{
     justify-content: center;
     gap: 4px;
     position: relative;
+    cursor: pointer;
+    z-index: 1;
 }
 .nav-item span{
     font-family: 'Vazirmatn', sans-serif;
@@ -342,17 +343,52 @@ h1{
     white-space: nowrap;
 }
 
-.nav-home{
-    margin-top: -30px;
+/* دکمه خانه وسط - بالاتر از نوار */
+.nav-home-center{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    z-index: 2;
+    position: relative;
+    margin-top: -28px;
 }
-.nav-home-circle{
-    width: 58px;
-    height: 58px;
+.nav-home-center span{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    color: rgba(255,233,184,0.9);
+    white-space: nowrap;
+    margin-top: 2px;
+}
+.nav-home-btn{
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 4px;
+    background: linear-gradient(160deg, rgba(255,233,184,0.45), rgba(232,169,75,0.25));
+    backdrop-filter: blur(16px) saturate(220%);
+    -webkit-backdrop-filter: blur(16px) saturate(220%);
+    border: 1.5px solid rgba(255,233,184,0.75);
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.55),
+        inset 0 -6px 12px -8px rgba(0,0,0,0.3),
+        0 10px 24px rgba(232,169,75,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.nav-home-btn:active{
+    transform: scale(0.93);
+}
+.nav-home-center.active .nav-home-btn{
+    background: linear-gradient(160deg, rgba(255,233,184,0.7), rgba(232,169,75,0.45));
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.65),
+        0 12px 28px rgba(232,169,75,0.7);
 }
 
 /* ===== ایندیکیتور طلایی متحرک نوار پایین ===== */
@@ -379,9 +415,6 @@ h1{
         left 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
         top 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
         opacity 0.3s ease;
-}
-.nav-item{
-    z-index: 1;
 }
 .nav-item.active span{
     color: rgba(255, 233, 184, 0.95);
@@ -572,7 +605,7 @@ h1{
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
-/* صفحه کیف پول هم از همین استایل toast استفاده می‌کند */
+
 .wallet-toast{
     position: fixed;
     bottom: 110px;
@@ -671,8 +704,6 @@ h1{
     color: #FFE9B8;
     text-shadow: 0 0 10px rgba(232,169,75,0.5);
 }
-
-/* آیکون بزرگ کیف پول بالای کارت، صرفاً تزئینی */
 .wallet-hero{
     display: flex;
     justify-content: center;
@@ -694,7 +725,6 @@ h1{
         inset 0 -6px 12px -8px rgba(0,0,0,0.3),
         0 10px 22px rgba(232,169,75,0.45);
 }
-
 .wallet-field{
     margin-bottom: 16px;
 }
@@ -722,16 +752,4 @@ h1{
     color: rgba(247,247,247,0.95);
     font-family: 'Vazirmatn', sans-serif;
     font-weight: 400;
-    font-size: 14px;
-    text-align: right;
-    outline: none;
-    transition: border-color 0.25s ease, background 0.25s ease;
-}
-.wallet-field-input-wrap input:focus{
-    border-color: rgba(232,169,75,0.65);
-    background: rgba(255,255,255,0.09);
-}
-.wallet-field-input-wrap input::placeholder{
-    color: rgba(255,255,255,0.3);
-}
-.wa
+    font-size: 1
