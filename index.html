@@ -2666,7 +2666,7 @@ h1{
         <!-- کارت موجودی -->
         <div class="wallet-balance-card">
             <div class="wallet-balance-label">موجودی فعلی</div>
-            <div class="wallet-balance-amount">۴۶۷۰۰۰</div>
+            <div class="wallet-balance-amount" id="walletBalanceAmount">۰</div>
             <div class="wallet-balance-unit">تومان</div>
         </div>
 
@@ -2729,8 +2729,8 @@ h1{
         <div class="wallet-sheet-handle"></div>
         <h2>افزودن موجودی</h2>
         <div class="wallet-balance-row">
-            <span>موجودی:</span>
-            <strong>400000 تومان</strong>
+            <span>موجودی فعلی:</span>
+            <strong id="depositCurrentBal">۰ تومان</strong>
         </div>
         <div class="wallet-hero">
             <div class="wallet-hero-circle">
@@ -2746,25 +2746,94 @@ h1{
                 </svg>
             </div>
         </div>
-        <div class="wallet-field">
-            <label>مبلغ (تومان)</label>
-            <div class="wallet-field-input-wrap">
-                <input type="number" id="walletAmountInput" placeholder="مبلغ را وارد کنید">
-                <span class="wallet-field-currency">T</span>
+
+        <!-- مرحله ۱: انتخاب مبلغ -->
+        <div id="depositStep1">
+            <div class="wallet-field">
+                <label>مبلغ (تومان)</label>
+                <div class="wallet-field-input-wrap">
+                    <input type="number" id="walletAmountInput" placeholder="مبلغ را وارد کنید">
+                    <span class="wallet-field-currency">T</span>
+                </div>
+            </div>
+            <div class="wallet-amounts-row">
+                <div class="wallet-amount-chip" onclick="setAmount(50000)">۵۰ هزار</div>
+                <div class="wallet-amount-chip" onclick="setAmount(100000)">۱۰۰ هزار</div>
+                <div class="wallet-amount-chip" onclick="setAmount(500000)">۵۰۰ هزار</div>
+                <div class="wallet-amount-chip" onclick="setAmount(1000000)">۱ میلیون</div>
+            </div>
+            <button class="wallet-submit" onclick="showPaymentInstructions()">ادامه</button>
+        </div>
+
+        <!-- مرحله ۲: راهنمای پرداخت -->
+        <div id="depositStep2" style="display:none;">
+            <div style="
+                background: linear-gradient(160deg, rgba(255,233,184,0.1), rgba(232,169,75,0.05));
+                border: 1.5px solid rgba(255,233,184,0.35);
+                border-radius: 18px;
+                padding: 20px 18px;
+                margin-bottom: 16px;
+                direction: rtl;
+            ">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="9" stroke="#FFE9B8" stroke-width="1.5"/>
+                        <path d="M12 8v4l3 3" stroke="#FFE9B8" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <span style="font-family:Estedad,sans-serif;font-weight:700;font-size:14px;color:#FFE9B8;">راهنمای واریز</span>
+                </div>
+                <p style="font-family:Vazirmatn,sans-serif;font-size:13.5px;color:rgba(255,255,255,0.85);line-height:2;margin:0 0 12px 0;">
+                    لطفاً مبلغ
+                    <strong id="payAmountText" style="color:#FFE9B8;font-family:Estedad,sans-serif;font-size:15px;"></strong>
+                    تومان را به شماره کارت زیر واریز کنید:
+                </p>
+                <!-- شماره کارت -->
+                <div style="
+                    background: rgba(0,0,0,0.35);
+                    border: 1px solid rgba(255,233,184,0.25);
+                    border-radius: 12px;
+                    padding: 14px 16px;
+                    margin-bottom: 14px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                ">
+                    <button onclick="copyCardNumber()" style="
+                        background: linear-gradient(160deg, rgba(255,233,184,0.25), rgba(232,169,75,0.12));
+                        border: 1px solid rgba(255,233,184,0.35);
+                        border-radius: 8px;
+                        padding: 5px 12px;
+                        font-family:Vazirmatn,sans-serif;
+                        font-size:11px;
+                        color:#FFE9B8;
+                        cursor:pointer;
+                    ">کپی</button>
+                    <span style="font-family:Estedad,sans-serif;font-weight:700;font-size:16px;color:#FFE9B8;letter-spacing:3px;direction:ltr;" id="cardNumberDisplay">6219-8619-0000-0000</span>
+                </div>
+                <p style="font-family:Vazirmatn,sans-serif;font-size:13px;color:rgba(255,255,255,0.7);line-height:2;margin:0;">
+                    پس از واریز، رسید تراکنش را به
+                    <strong style="color:#FFE9B8;">پیوی ادمین</strong>
+                    ارسال کنید. موجودی شما پس از تأیید ادمین افزوده خواهد شد.
+                </p>
+            </div>
+            <div style="display:flex;gap:10px;">
+                <button class="wallet-submit" style="flex:1;" onclick="closeDepositAndConfirm()">متوجه شدم ✓</button>
+                <button onclick="backToStep1()" style="
+                    flex:0 0 80px;
+                    padding:14px 0;
+                    border-radius:999px;
+                    border:1px solid rgba(255,255,255,0.2);
+                    background:rgba(255,255,255,0.07);
+                    color:rgba(255,255,255,0.65);
+                    font-family:Vazirmatn,sans-serif;
+                    font-size:14px;
+                    cursor:pointer;
+                ">بازگشت</button>
             </div>
         </div>
-        <div class="wallet-amounts-row">
-            <div class="wallet-amount-chip" onclick="setAmount(50000)">۵۰ هزار</div>
-            <div class="wallet-amount-chip" onclick="setAmount(100000)">۱۰۰ هزار</div>
-            <div class="wallet-amount-chip" onclick="setAmount(500000)">۵۰۰ هزار</div>
-            <div class="wallet-amount-chip" onclick="setAmount(1000000)">۱ میلیون</div>
-        </div>
-        <a href="#" onclick="return false;">
-            <button class="wallet-submit" onclick="showWalletToast()">پرداخت و افزودن</button>
-        </a>
     </div>
 </div>
-<div class="wallet-toast" id="walletToast">موجودی با موفقیت افزوده شد ✓</div>
+<div class="wallet-toast" id="walletToast">رسید واریز را به پیوی ارسال کنید ✓</div>
 
 <script>
 // ===== منوی پایین =====
@@ -2839,6 +2908,17 @@ function closeWalletPageIfBg(e){
 
 // صفحه افزودن موجودی
 function openWalletDeposit(){
+    // ریست مرحله‌ها
+    document.getElementById('depositStep1').style.display = 'block';
+    document.getElementById('depositStep2').style.display = 'none';
+    document.getElementById('walletAmountInput').value = '';
+    document.querySelectorAll('.wallet-amount-chip').forEach(c => c.classList.remove('selected'));
+    // نمایش موجودی فعلی
+    if(AppState.currentUser && AppState.users[AppState.currentUser]){
+        const bal = AppState.users[AppState.currentUser].balance;
+        const el = document.getElementById('depositCurrentBal');
+        if(el) el.textContent = bal.toLocaleString('fa-IR') + ' تومان';
+    }
     document.getElementById('walletOverlay').classList.add('open');
 }
 function closeWalletIfBg(e){
@@ -2850,16 +2930,47 @@ function setAmount(val){
     document.querySelectorAll('.wallet-amount-chip').forEach(c => c.classList.remove('selected'));
     event.target.classList.add('selected');
 }
-function showWalletToast(){
+function showPaymentInstructions(){
+    const raw = document.getElementById('walletAmountInput').value;
+    const amount = parseInt(raw);
+    if(!amount || amount <= 0){
+        document.getElementById('walletAmountInput').style.borderColor = 'rgba(255,80,60,0.6)';
+        setTimeout(()=> document.getElementById('walletAmountInput').style.borderColor = '', 1500);
+        return;
+    }
+    // فرمت عدد فارسی
+    const formatted = amount.toLocaleString('fa-IR');
+    document.getElementById('payAmountText').textContent = formatted;
+    document.getElementById('depositStep1').style.display = 'none';
+    document.getElementById('depositStep2').style.display = 'block';
+}
+function backToStep1(){
+    document.getElementById('depositStep1').style.display = 'block';
+    document.getElementById('depositStep2').style.display = 'none';
+}
+function copyCardNumber(){
+    const num = '6219861900000000';
+    navigator.clipboard.writeText(num).catch(()=>{});
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = 'کپی شد ✓';
+    setTimeout(()=> btn.textContent = orig, 1800);
+}
+function closeDepositAndConfirm(){
     document.getElementById('walletOverlay').classList.remove('open');
+    backToStep1();
     const t = document.getElementById('walletToast');
     t.classList.add('show');
-    setTimeout(()=> t.classList.remove('show'), 2500);
+    setTimeout(()=> t.classList.remove('show'), 3500);
 }
+// برای سازگاری با کد قدیمی
+function showWalletToast(){ closeDepositAndConfirm(); }
 
 // active کردن خانه به‌صورت پیش‌فرض
 window.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('nav-home').classList.add('active');
+    // لاگین خودکار اولین کاربر پیشفرض
+    AppState.loginUser('سلطان کانف');
 });
 </script>
 
@@ -3437,9 +3548,9 @@ function switchAdminTab(tabId, el){
 const AppState = {
     currentUser: null, // کاربر لاگین‌شده فعلی
     users: {
-        'سلطان کانف': { phone: '09123456789', balance: 467000, status: 'فعال' },
-        'خاله ۶۰۰':  { phone: '09187654321', balance: 125000, status: 'فعال' },
-        'جناب آقای عباسی بزرگ': { phone: '09351234567', balance: 900000, status: 'فعال' },
+        'سلطان کانف': { phone: '09123456789', balance: 0, status: 'فعال' },
+        'خاله ۶۰۰':  { phone: '09187654321', balance: 0, status: 'فعال' },
+        'جناب آقای عباسی بزرگ': { phone: '09351234567', balance: 0, status: 'فعال' },
     },
 
     // افزودن موجودی به یک کاربر - همه جای UI آپدیت میشه
@@ -3564,9 +3675,11 @@ const AppState = {
     syncWalletUI(){
         if(!this.currentUser || !this.users[this.currentUser]) return;
         const bal = this.users[this.currentUser].balance;
-        const el = document.querySelector('.wallet-balance-amount');
+        // کارت موجودی داخل صفحه کیف پول
+        const el = document.getElementById('walletBalanceAmount');
         if(el) el.textContent = bal.toLocaleString('fa-IR');
-        const el2 = document.querySelector('#walletOverlay .wallet-balance-row strong');
+        // موجودی در فرم افزودن
+        const el2 = document.getElementById('depositCurrentBal');
         if(el2) el2.textContent = bal.toLocaleString('fa-IR') + ' تومان';
     }
 };
@@ -3744,13 +3857,13 @@ function saveProfile(){
         setTimeout(()=> document.getElementById('profilePhone').style.borderColor = '', 1500);
         return;
     }
+    if(!name){ return; }
     // اگه کاربر جدیده، توی AppState ثبتش کن
-    if(name && !AppState.users[name]){
+    if(!AppState.users[name]){
         AppState.registerUser(name, phone || '—');
     }
-    // لاگین
-    if(name) AppState.loginUser(name);
-    if(name) window._profileName = name;
+    // لاگین و sync کامل UI
+    AppState.loginUser(name);
     if(phone) window._profilePhone = phone;
     document.getElementById('profileOverlay').classList.remove('open');
     const t = document.getElementById('profileToast');
