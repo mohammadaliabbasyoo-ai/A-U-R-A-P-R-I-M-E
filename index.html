@@ -1114,6 +1114,1305 @@ h1{
 }
 .wallet-tx-amount.in{ color: #3CEB8C; }
 .wallet-tx-amount.out{ color: #FF6040; }
+/* ===== منوی همبرگری ===== */
+.hamburger-wrap{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+.hamburger-btn{
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, rgba(255,255,255,0.17) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.09) 100%);
+    backdrop-filter: blur(18px) saturate(220%) contrast(1.15) brightness(1.15);
+    -webkit-backdrop-filter: blur(18px) saturate(220%) contrast(1.15) brightness(1.15);
+    border: none;
+    border-top: 1.5px solid rgba(255,255,255,0.8);
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.45),
+        inset 0 -8px 16px -8px rgba(255,255,255,0.07),
+        0 14px 32px rgba(0,0,0,0.55);
+    transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+.hamburger-btn::before{
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -25%;
+    width: 65%;
+    height: 160%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.5), rgba(255,255,255,0) 60%);
+    transform: rotate(-15deg);
+    filter: blur(9px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+.hamburger-btn:active{ transform: scale(0.92); }
+.hb-line{
+    width: 24px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #FFE9B8, #E8A94B);
+    transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+    transform-origin: center;
+    box-shadow: 0 0 8px rgba(232,169,75,0.5);
+}
+.hamburger-btn.open .hb-line:nth-child(1){
+    transform: translateY(7px) rotate(45deg);
+}
+.hamburger-btn.open .hb-line:nth-child(2){
+    opacity: 0;
+    transform: scaleX(0);
+}
+.hamburger-btn.open .hb-line:nth-child(3){
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ===== منوی کشویی ===== */
+.hb-menu-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+.hb-menu-overlay.open{
+    opacity: 1;
+    pointer-events: auto;
+}
+.hb-menu-bg{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.hb-menu-panel{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(320px, 88vw);
+    min-height: 100vh;
+    background: linear-gradient(160deg, rgba(22,22,28,0.97) 0%, rgba(10,10,14,0.99) 60%, rgba(20,20,26,0.97) 100%);
+    backdrop-filter: blur(28px) saturate(220%);
+    -webkit-backdrop-filter: blur(28px) saturate(220%);
+    border-left: 1px solid rgba(255,255,255,0.1);
+    border-top: none;
+    box-shadow:
+        inset 1px 0 1px rgba(255,255,255,0.1),
+        -20px 0 60px rgba(0,0,0,0.7);
+    transform: translateX(110%);
+    transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+    padding: 0 0 40px 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.hb-menu-panel::before{
+    content: "";
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 60%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(255,233,184,0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+.hb-menu-overlay.open .hb-menu-panel{
+    transform: translateX(0);
+}
+
+/* هدر پنل */
+.hb-panel-header{
+    padding: 68px 24px 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+}
+.hb-panel-logo{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.hb-panel-logo-circle{
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: linear-gradient(160deg, rgba(255,233,184,0.35), rgba(232,169,75,0.18));
+    border: 1.5px solid rgba(255,233,184,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.5),
+        0 8px 18px rgba(232,169,75,0.35);
+}
+.hb-panel-logo-text{
+    display: flex;
+    flex-direction: column;
+}
+.hb-panel-logo-title{
+    font-family: 'Estedad', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: #FFE9B8;
+    text-shadow: 0 0 12px rgba(232,169,75,0.5);
+    letter-spacing: 2px;
+}
+.hb-panel-logo-sub{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.3px;
+}
+
+/* آیتم‌های منو */
+.hb-menu-list{
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.hb-menu-item{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 18px;
+    border-radius: 18px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
+    background: transparent;
+    border: 1px solid transparent;
+    text-align: right;
+    direction: rtl;
+}
+.hb-menu-item::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.hb-menu-item:active::before,
+.hb-menu-item:hover::before{ opacity: 1; }
+.hb-menu-item:active{ transform: scale(0.97); }
+.hb-menu-item.gold{
+    background: linear-gradient(160deg, rgba(255,233,184,0.12) 0%, rgba(232,169,75,0.06) 100%);
+    border-color: rgba(255,233,184,0.25);
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.15),
+        0 6px 16px rgba(0,0,0,0.3);
+}
+.hb-item-icon{
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: linear-gradient(160deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+    transition: all 0.25s ease;
+}
+.hb-menu-item.gold .hb-item-icon{
+    background: linear-gradient(160deg, rgba(255,233,184,0.25), rgba(232,169,75,0.12));
+    border-color: rgba(255,233,184,0.4);
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.35),
+        0 4px 10px rgba(232,169,75,0.25);
+}
+.hb-item-text{
+    flex: 1;
+}
+.hb-item-title{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: rgba(247,247,247,0.92);
+    margin-bottom: 3px;
+}
+.hb-menu-item.gold .hb-item-title{
+    color: #FFE9B8;
+}
+.hb-item-desc{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 300;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.38);
+    line-height: 1.5;
+}
+.hb-item-arrow{
+    flex-shrink: 0;
+    opacity: 0.35;
+    transition: opacity 0.2s, transform 0.25s;
+}
+.hb-menu-item:hover .hb-item-arrow,
+.hb-menu-item:active .hb-item-arrow{
+    opacity: 0.7;
+    transform: translateX(-3px);
+}
+.hb-divider{
+    height: 1px;
+    margin: 8px 20px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 999px;
+}
+
+/* ===== پنل رمز ===== */
+.admin-pass-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 4000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.admin-pass-overlay.open{
+    opacity: 1;
+    pointer-events: auto;
+}
+.admin-pass-bg{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+.admin-pass-card{
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    background: linear-gradient(160deg, rgba(28,28,34,0.97) 0%, rgba(10,10,14,0.99) 60%, rgba(22,22,28,0.97) 100%);
+    backdrop-filter: blur(28px) saturate(220%);
+    -webkit-backdrop-filter: blur(28px) saturate(220%);
+    border: none;
+    border-top: 1.5px solid rgba(255,233,184,0.6);
+    border-radius: 28px;
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.3),
+        inset 0 -18px 28px -14px rgba(255,255,255,0.04),
+        0 24px 60px rgba(0,0,0,0.7);
+    padding: 32px 28px;
+    transform: scale(0.88) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    overflow: hidden;
+}
+.admin-pass-card::before{
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -25%;
+    width: 65%;
+    height: 160%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.4), rgba(255,255,255,0) 60%);
+    transform: rotate(-15deg);
+    filter: blur(9px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+.admin-pass-overlay.open .admin-pass-card{
+    transform: scale(1) translateY(0);
+}
+.admin-pass-icon{
+    width: 70px;
+    height: 70px;
+    border-radius: 22px;
+    background: linear-gradient(160deg, rgba(255,233,184,0.3), rgba(232,169,75,0.15));
+    border: 1.5px solid rgba(255,233,184,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.45),
+        0 10px 24px rgba(232,169,75,0.3);
+    transition: all 0.3s ease;
+}
+.admin-pass-icon.shake{
+    animation: shakeIcon 0.5s cubic-bezier(0.36,0.07,0.19,0.97);
+    border-color: rgba(255,80,60,0.7);
+    background: linear-gradient(160deg, rgba(255,80,60,0.2), rgba(200,20,0,0.1));
+    box-shadow: 0 10px 24px rgba(255,80,60,0.3);
+}
+@keyframes shakeIcon{
+    0%,100%{ transform: translateX(0); }
+    15%{ transform: translateX(-8px) rotate(-3deg); }
+    30%{ transform: translateX(8px) rotate(3deg); }
+    45%{ transform: translateX(-6px); }
+    60%{ transform: translateX(6px); }
+    75%{ transform: translateX(-3px); }
+}
+.admin-pass-title{
+    font-family: 'Estedad', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: #FFE9B8;
+    text-align: center;
+    margin-bottom: 6px;
+}
+.admin-pass-sub{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    margin-bottom: 26px;
+    line-height: 1.6;
+}
+.admin-pass-dots{
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 24px;
+    direction: ltr;
+}
+.admin-pass-dot{
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    background: transparent;
+    transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+.admin-pass-dot.filled{
+    background: linear-gradient(160deg, #FFE9B8, #E8A94B);
+    border-color: rgba(255,233,184,0.8);
+    box-shadow: 0 0 10px rgba(232,169,75,0.6);
+    transform: scale(1.15);
+}
+.admin-pass-dot.error{
+    background: linear-gradient(160deg, #FF6040, #CC2000);
+    border-color: rgba(255,80,60,0.8);
+    box-shadow: 0 0 10px rgba(255,80,60,0.5);
+}
+.admin-pass-keypad{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+.admin-key-btn{
+    height: 58px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.15), 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.15s cubic-bezier(0.34,1.56,0.64,1);
+    font-family: 'Estedad', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: rgba(247,247,247,0.9);
+    user-select: none;
+}
+.admin-key-btn::before{
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.25), transparent 60%);
+    transform: rotate(-15deg);
+    filter: blur(5px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+.admin-key-btn:active{
+    transform: scale(0.9);
+    background: linear-gradient(160deg, rgba(255,233,184,0.2), rgba(232,169,75,0.1));
+    border-color: rgba(255,233,184,0.5);
+    box-shadow: 0 2px 8px rgba(232,169,75,0.3);
+}
+.admin-key-btn.del-btn{
+    background: linear-gradient(160deg, rgba(255,80,60,0.15), rgba(200,20,0,0.08));
+    border-color: rgba(255,80,60,0.25);
+}
+.admin-key-err{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 500;
+    font-size: 12.5px;
+    color: #FF6040;
+    text-align: center;
+    margin-top: 14px;
+    min-height: 18px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-shadow: 0 0 8px rgba(255,80,60,0.4);
+}
+.admin-key-err.show{ opacity: 1; }
+
+/* ===== پنل مدیریت ===== */
+.admin-panel-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 4500;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    overflow-y: auto;
+}
+.admin-panel-overlay.open{
+    opacity: 1;
+    pointer-events: auto;
+}
+.admin-panel-wrap{
+    min-height: 100vh;
+    padding: 0 0 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.admin-panel-header{
+    width: 100%;
+    max-width: 460px;
+    padding: 56px 24px 24px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.admin-panel-title-wrap{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    direction: rtl;
+}
+.admin-panel-title-icon{
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    background: linear-gradient(160deg, rgba(255,233,184,0.3), rgba(232,169,75,0.15));
+    border: 1.5px solid rgba(255,233,184,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.4),
+        0 8px 18px rgba(232,169,75,0.3);
+}
+.admin-panel-title{
+    font-family: 'Estedad', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: #FFE9B8;
+    text-shadow: 0 0 12px rgba(232,169,75,0.4);
+}
+.admin-close-btn{
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.admin-close-btn:active{ transform: scale(0.9); background: rgba(255,80,60,0.2); border-color: rgba(255,80,60,0.4); }
+
+/* تب‌ها */
+.admin-tabs{
+    display: flex;
+    gap: 8px;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 460px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    scrollbar-width: none;
+    direction: rtl;
+}
+.admin-tabs::-webkit-scrollbar{ display: none; }
+.admin-tab{
+    flex-shrink: 0;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.55);
+    white-space: nowrap;
+}
+.admin-tab.active{
+    background: linear-gradient(160deg, rgba(255,233,184,0.25), rgba(232,169,75,0.12));
+    border-color: rgba(255,233,184,0.5);
+    color: #FFE9B8;
+    box-shadow: 0 4px 12px rgba(232,169,75,0.2);
+}
+
+/* محتوای تب */
+.admin-tab-content{
+    display: none;
+    width: 100%;
+    max-width: 460px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    direction: rtl;
+}
+.admin-tab-content.active{ display: block; }
+
+/* کارت‌های ادمین */
+.admin-card{
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.06) 100%);
+    backdrop-filter: blur(18px) saturate(200%);
+    -webkit-backdrop-filter: blur(18px) saturate(200%);
+    border: none;
+    border-top: 1.5px solid rgba(255,255,255,0.6);
+    border-radius: 22px;
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.35),
+        inset 0 -12px 20px -10px rgba(255,255,255,0.04),
+        0 14px 32px rgba(0,0,0,0.5);
+    padding: 20px 20px;
+    margin-bottom: 14px;
+}
+.admin-card::before{
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -25%;
+    width: 55%;
+    height: 160%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%);
+    transform: rotate(-15deg);
+    filter: blur(9px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+.admin-card-title{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.admin-card-title svg{ flex-shrink: 0; }
+
+/* جستجوی کاربر */
+.admin-search-wrap{
+    position: relative;
+    margin-bottom: 14px;
+}
+.admin-search-input{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 46px 13px 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(247,247,247,0.95);
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    text-align: right;
+    outline: none;
+    transition: border-color 0.25s ease, background 0.25s ease;
+    direction: rtl;
+}
+.admin-search-input:focus{
+    border-color: rgba(232,169,75,0.6);
+    background: rgba(255,255,255,0.09);
+}
+.admin-search-input::placeholder{ color: rgba(255,255,255,0.3); }
+.admin-search-icon{
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+/* کارت کاربر */
+.admin-user-card{
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 16px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    direction: rtl;
+    transition: all 0.2s ease;
+}
+.admin-user-card:active{ transform: scale(0.98); }
+.admin-user-avatar{
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: linear-gradient(160deg, rgba(255,233,184,0.2), rgba(232,169,75,0.1));
+    border: 1.5px solid rgba(255,233,184,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.3);
+}
+.admin-user-info{ flex: 1; }
+.admin-user-name{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: rgba(247,247,247,0.92);
+    margin-bottom: 3px;
+}
+.admin-user-meta{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 300;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.38);
+}
+.admin-user-balance{
+    font-family: 'Estedad', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: #FFE9B8;
+    text-shadow: 0 0 8px rgba(232,169,75,0.4);
+    text-align: left;
+}
+.admin-user-balance-label{
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+    text-align: left;
+}
+
+/* فرم اضافه موجودی */
+.admin-form-row{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    align-items: flex-end;
+}
+.admin-input-wrap{
+    flex: 1;
+}
+.admin-input-label{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 6px;
+    display: block;
+    text-align: right;
+}
+.admin-input{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(247,247,247,0.95);
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    text-align: right;
+    outline: none;
+    transition: border-color 0.25s ease;
+    direction: rtl;
+}
+.admin-input:focus{
+    border-color: rgba(232,169,75,0.6);
+    background: rgba(255,255,255,0.09);
+}
+.admin-input::placeholder{ color: rgba(255,255,255,0.28); }
+.admin-btn{
+    padding: 13px 22px;
+    border-radius: 14px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.18s cubic-bezier(0.34,1.56,0.64,1);
+    position: relative;
+    overflow: hidden;
+}
+.admin-btn::before{
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.35), transparent 60%);
+    transform: rotate(-15deg);
+    filter: blur(6px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+.admin-btn:active{ transform: scale(0.95); }
+.admin-btn.gold{
+    background: linear-gradient(160deg, #FFE9B8 0%, #E8A94B 100%);
+    color: rgba(20,15,5,0.95);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.6), 0 8px 18px rgba(232,169,75,0.4);
+}
+.admin-btn.red{
+    background: linear-gradient(160deg, rgba(255,80,60,0.7), rgba(180,20,0,0.6));
+    color: rgba(255,255,255,0.95);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.3), 0 8px 18px rgba(255,60,40,0.35);
+}
+.admin-btn.ghost{
+    background: linear-gradient(160deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04));
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.8);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.15);
+}
+.admin-full-btn{
+    width: 100%;
+    padding: 15px 0;
+    border-radius: 999px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.18s ease;
+    position: relative;
+    overflow: hidden;
+    margin-top: 6px;
+}
+.admin-full-btn::before{
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: -20%;
+    width: 60%;
+    height: 220%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.45), rgba(255,255,255,0) 60%);
+    transform: rotate(-15deg);
+    filter: blur(8px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+.admin-full-btn:active{ transform: scale(0.97); }
+.admin-full-btn.gold{
+    background: linear-gradient(160deg, #FFE9B8 0%, #E8A94B 100%);
+    color: rgba(20,15,5,0.95);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.6), 0 10px 24px rgba(232,169,75,0.4);
+}
+.admin-full-btn.green{
+    background: linear-gradient(160deg, rgba(60,235,140,0.7), rgba(0,180,80,0.6));
+    color: rgba(0,20,8,0.95);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 10px 24px rgba(60,235,140,0.35);
+}
+
+/* آمار */
+.admin-stats-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.admin-stat-item{
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.12);
+    border-top: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 18px;
+    padding: 16px 14px;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.25), 0 8px 18px rgba(0,0,0,0.35);
+}
+.admin-stat-item::before{
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -25%;
+    width: 60%;
+    height: 160%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0) 60%);
+    transform: rotate(-15deg);
+    filter: blur(8px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+.admin-stat-value{
+    font-family: 'Estedad', sans-serif;
+    font-weight: 900;
+    font-size: 26px;
+    color: #FFE9B8;
+    text-shadow: 0 0 14px rgba(232,169,75,0.5);
+    margin-bottom: 4px;
+    direction: ltr;
+    text-align: right;
+}
+.admin-stat-label{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 400;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.45);
+}
+
+/* تراکنش‌های ادمین */
+.admin-tx-row{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 8px;
+    direction: rtl;
+}
+.admin-tx-dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.admin-tx-dot.in{ background: #3CEB8C; box-shadow: 0 0 6px rgba(60,235,140,0.6); }
+.admin-tx-dot.out{ background: #FF6040; box-shadow: 0 0 6px rgba(255,80,60,0.6); }
+.admin-tx-info{ flex: 1; }
+.admin-tx-name{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    color: rgba(247,247,247,0.85);
+    margin-bottom: 2px;
+}
+.admin-tx-time{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    color: rgba(255,255,255,0.32);
+}
+.admin-tx-amount{
+    font-family: 'Estedad', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+}
+.admin-tx-amount.in{ color: #3CEB8C; }
+.admin-tx-amount.out{ color: #FF6040; }
+
+/* تست پیام */
+.admin-toast{
+    position: fixed;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: linear-gradient(160deg, rgba(60,235,140,0.95), rgba(0,180,80,0.95));
+    color: rgba(0,20,8,0.95);
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    box-shadow: 0 10px 28px rgba(60,235,140,0.4);
+    z-index: 5000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    white-space: nowrap;
+}
+.admin-toast.show{
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+.admin-toast.error{
+    background: linear-gradient(160deg, rgba(255,80,60,0.95), rgba(180,20,0,0.95));
+    color: rgba(255,255,255,0.95);
+    box-shadow: 0 10px 28px rgba(255,60,40,0.4);
+}
+
+/* بج نوتیف */
+.hb-badge{
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(160deg, #FF6040, #CC2000);
+    border: 2px solid rgba(6,6,7,1);
+    font-family: 'Estedad', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 8px rgba(255,60,40,0.5);
+    animation: badgePulse 2s ease-in-out infinite;
+}
+@keyframes badgePulse{
+    0%,100%{ box-shadow: 0 0 8px rgba(255,60,40,0.5); }
+    50%{ box-shadow: 0 0 14px rgba(255,60,40,0.8); }
+}
+
+/* وضعیت بازی در ادمین */
+.admin-game-row{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 14px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 10px;
+    direction: rtl;
+}
+.admin-game-flags{
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-shrink: 0;
+}
+.admin-game-flag{
+    width: 28px;
+    height: 18px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+.admin-game-info{ flex: 1; }
+.admin-game-name{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: rgba(247,247,247,0.88);
+    margin-bottom: 3px;
+}
+.admin-game-score{
+    font-family: 'Estedad', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+}
+.admin-status-toggle{
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+.admin-status-toggle.live{
+    background: linear-gradient(160deg, rgba(60,235,140,0.3), rgba(0,180,80,0.15));
+    border: 1px solid rgba(60,235,140,0.5);
+    color: #3CEB8C;
+}
+.admin-status-toggle.ended{
+    background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.5);
+}
+
+
+/* ===== صفحه نتایج ===== */
+.results-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1500;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+.results-overlay.open{
+    opacity: 1;
+    pointer-events: auto;
+}
+.results-sheet{
+    width: 100%;
+    max-width: 420px;
+    min-height: 75vh;
+    max-height: 90vh;
+    background: linear-gradient(160deg, rgba(22,22,26,0.97) 0%, rgba(10,10,12,0.98) 60%, rgba(18,18,22,0.97) 100%);
+    backdrop-filter: blur(28px) saturate(220%);
+    -webkit-backdrop-filter: blur(28px) saturate(220%);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-bottom: none;
+    border-top: 1.5px solid rgba(255,233,184,0.5);
+    border-radius: 30px 30px 0 0;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), 0 -24px 60px rgba(0,0,0,0.7);
+    padding: 22px 20px 40px;
+    box-sizing: border-box;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto;
+    position: relative;
+}
+.results-sheet::before{
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: -15%;
+    width: 45%;
+    height: 200%;
+    background: linear-gradient(120deg, rgba(255,233,184,0.08), transparent 60%);
+    transform: rotate(-15deg);
+    filter: blur(18px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+.results-overlay.open .results-sheet{ transform: translateY(0); }
+.results-handle{
+    width: 42px;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.2);
+    margin: 0 auto 20px;
+}
+.results-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+.results-header h2{
+    color: rgba(247,247,247,1);
+    font-family: 'Estedad', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    margin: 0;
+}
+.result-card{
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.07) 100%);
+    backdrop-filter: blur(18px) saturate(220%);
+    -webkit-backdrop-filter: blur(18px) saturate(220%);
+    border: none;
+    border-top: 1.5px solid rgba(255,255,255,0.7);
+    border-radius: 22px;
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.4),
+        inset 0 -12px 20px -10px rgba(255,255,255,0.04),
+        0 12px 28px rgba(0,0,0,0.5);
+    padding: 18px 18px 16px;
+    margin-bottom: 12px;
+    direction: rtl;
+}
+.result-card::before{
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -25%;
+    width: 55%;
+    height: 160%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%);
+    transform: rotate(-15deg);
+    filter: blur(9px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+.result-card::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    border-radius: inherit;
+}
+.result-card.won{
+    border-top-color: rgba(60,235,140,0.8);
+    background: linear-gradient(160deg, rgba(60,235,140,0.12) 0%, rgba(0,180,80,0.04) 50%, rgba(60,235,140,0.08) 100%);
+}
+.result-card.lost{
+    border-top-color: rgba(255,80,60,0.7);
+    background: linear-gradient(160deg, rgba(255,80,60,0.1) 0%, rgba(180,20,0,0.04) 50%, rgba(255,80,60,0.07) 100%);
+}
+.result-card.pending{
+    border-top-color: rgba(255,233,184,0.6);
+}
+.result-card.no-bet{
+    opacity: 0.65;
+}
+.result-top-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+.result-flags{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.result-flag{
+    width: 36px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.result-vs{
+    font-family: 'Estedad', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+}
+.result-badge{
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+}
+.result-badge.won{
+    background: linear-gradient(160deg, rgba(60,235,140,0.3), rgba(0,180,80,0.15));
+    border: 1px solid rgba(60,235,140,0.5);
+    color: #3CEB8C;
+}
+.result-badge.lost{
+    background: linear-gradient(160deg, rgba(255,80,60,0.25), rgba(180,20,0,0.12));
+    border: 1px solid rgba(255,80,60,0.45);
+    color: #FF6040;
+}
+.result-badge.pending{
+    background: linear-gradient(160deg, rgba(255,233,184,0.2), rgba(232,169,75,0.1));
+    border: 1px solid rgba(255,233,184,0.4);
+    color: #FFE9B8;
+}
+.result-badge.no-bet{
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.45);
+}
+.result-score{
+    font-family: 'Estedad', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: rgba(247,247,247,1);
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+.result-teams-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.result-team-name{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+}
+.result-bet-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.result-bet-label{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+}
+.result-bet-detail{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.result-bet-pick{
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+}
+.result-bet-amount{
+    font-family: 'Estedad', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #FFE9B8;
+}
+.result-earn-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: rgba(60,235,140,0.07);
+    border: 1px solid rgba(60,235,140,0.18);
+}
+.result-earn-row.lost-row{
+    background: rgba(255,80,60,0.07);
+    border-color: rgba(255,80,60,0.18);
+}
+.result-earn-label{
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+}
+.result-earn-val{
+    font-family: 'Estedad', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+}
+.result-earn-val.won{ color: #3CEB8C; text-shadow: 0 0 8px rgba(60,235,140,0.5); }
+.result-earn-val.lost{ color: #FF6040; }
+.results-empty{
+    text-align: center;
+    padding: 40px 20px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: rgba(255,255,255,0.35);
+}
+
 </style>
 </head>
 <body>
@@ -1218,7 +2517,7 @@ h1{
                     <span class="odds-label">برد برزیل</span>
                 </div>
             </div>
-            <div class="glass-btn btn-green" onclick="return false;">شرط ببند!</div>
+            <div class="glass-btn btn-green" onclick="placeBet(2, 'برد برزیل', 2.20)">شرط ببند!</div>
         </div>
     </div>
 </div>
@@ -1309,13 +2608,16 @@ h1{
 </nav>
 
 <!-- ===== صفحه پروفایل ===== -->
+<input type="file" id="avatarFileInput" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)">
+
 <div class="profile-overlay" id="profileOverlay" onclick="closeProfileIfBg(event)">
     <div class="profile-sheet">
         <div class="profile-sheet-handle"></div>
         <h2>پروفایل</h2>
         <div class="profile-avatar-wrap">
-            <div class="profile-avatar">
-                <svg width="46" height="46" viewBox="0 0 24 24" fill="none">
+            <div class="profile-avatar" onclick="document.getElementById('avatarFileInput').click()" style="cursor:pointer;">
+                <img id="avatarImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;">
+                <svg id="avatarSvg" width="46" height="46" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="8" r="4" stroke="rgba(255,233,184,0.8)" stroke-width="1.5"/>
                     <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="rgba(255,233,184,0.8)" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
@@ -1326,16 +2628,17 @@ h1{
                     </svg>
                 </div>
             </div>
+            <div id="avatarHint" style="margin-top:8px;font-family:Vazirmatn,sans-serif;font-size:11px;color:rgba(255,255,255,0.35);text-align:center;">برای تغییر عکس کلیک کنید</div>
         </div>
         <div class="profile-field">
             <label>نام کاربری</label>
-            <input type="text" placeholder="نام کاربری خود را وارد کنید">
+            <input type="text" id="profileUsername" placeholder="نام کاربری خود را وارد کنید" value="">
         </div>
         <div class="profile-field">
             <label>شماره موبایل</label>
-            <input type="tel" placeholder="۰۹۱۲۳۴۵۶۷۸۹">
+            <input type="tel" id="profilePhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" maxlength="11" oninput="limitPhone(this)">
         </div>
-        <button class="profile-submit" onclick="showProfileToast()">ذخیره تغییرات</button>
+        <button class="profile-submit" onclick="saveProfile()">ذخیره تغییرات</button>
     </div>
 </div>
 <div class="profile-toast" id="profileToast">تغییرات ذخیره شد ✓</div>
@@ -1501,6 +2804,7 @@ function navClick(id, e){
     if(id === 'profile') openProfile();
     if(id === 'wallet') openWalletPage();
     if(id === 'bet') scrollToGames();
+    if(id === 'results') openResults();
 }
 
 // اسکرول به بازی‌ها
@@ -1558,5 +2862,1040 @@ window.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('nav-home').classList.add('active');
 });
 </script>
+
+<!-- ===== دکمه همبرگری ===== -->
+<div class="hamburger-wrap" id="hamburgerWrap">
+    <div class="hamburger-btn" id="hamburgerBtn" onclick="toggleHbMenu()">
+        <div class="hb-line"></div>
+        <div class="hb-line"></div>
+        <div class="hb-line"></div>
+    </div>
+    <div class="hb-badge" id="hbBadge">!</div>
+</div>
+
+<!-- ===== منوی همبرگری ===== -->
+<div class="hb-menu-overlay" id="hbMenuOverlay">
+    <div class="hb-menu-bg" onclick="closeHbMenu()"></div>
+    <div class="hb-menu-panel">
+        <div class="hb-panel-header">
+            <div class="hb-panel-logo">
+                <div class="hb-panel-logo-circle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <defs>
+                            <linearGradient id="hbLogoG" x1="0" y1="0" x2="24" y2="24">
+                                <stop offset="0%" stop-color="#FFE9B8"/>
+                                <stop offset="100%" stop-color="#E8A94B"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="12" cy="12" r="9" stroke="url(#hbLogoG)" stroke-width="1.6"/>
+                        <circle cx="12" cy="12" r="5" stroke="url(#hbLogoG)" stroke-width="1.6"/>
+                        <circle cx="12" cy="12" r="1.4" fill="url(#hbLogoG)"/>
+                    </svg>
+                </div>
+                <div class="hb-panel-logo-text">
+                    <div class="hb-panel-logo-title">AURA</div>
+                    <div class="hb-panel-logo-sub">پلتفرم شرط‌بندی هوشمند</div>
+                </div>
+            </div>
+        </div>
+        <div class="hb-menu-list">
+            <!-- خانه -->
+            <div class="hb-menu-item" onclick="hbMenuAction('home')">
+                <div class="hb-item-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <defs><linearGradient id="hbG1" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#FFE9B8"/><stop offset="100%" stop-color="#E8A94B"/></linearGradient></defs>
+                        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z" stroke="url(#hbG1)" stroke-width="1.7" stroke-linejoin="round"/>
+                        <path d="M9 21V13h6v8" stroke="url(#hbG1)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="hb-item-text">
+                    <div class="hb-item-title">صفحه اصلی</div>
+                    <div class="hb-item-desc">بازگشت به خانه</div>
+                </div>
+                <div class="hb-item-arrow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18l-6-6 6-6" stroke="rgba(255,255,255,0.6)" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+            <!-- شرط بندی -->
+            <div class="hb-menu-item" onclick="hbMenuAction('bet')">
+                <div class="hb-item-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <defs><linearGradient id="hbG2" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#FFE9B8"/><stop offset="100%" stop-color="#E8A94B"/></linearGradient></defs>
+                        <rect x="3" y="3" width="8" height="8" rx="2" stroke="url(#hbG2)" stroke-width="1.6"/>
+                        <rect x="13" y="3" width="8" height="8" rx="2" stroke="url(#hbG2)" stroke-width="1.6"/>
+                        <rect x="3" y="13" width="8" height="8" rx="2" stroke="url(#hbG2)" stroke-width="1.6"/>
+                        <rect x="13" y="13" width="8" height="8" rx="2" stroke="url(#hbG2)" stroke-width="1.6"/>
+                    </svg>
+                </div>
+                <div class="hb-item-text">
+                    <div class="hb-item-title">شرط‌بندی</div>
+                    <div class="hb-item-desc">بازی‌های زنده و پیش‌بینی</div>
+                </div>
+                <div class="hb-item-arrow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18l-6-6 6-6" stroke="rgba(255,255,255,0.6)" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+            <!-- کیف پول -->
+            <div class="hb-menu-item" onclick="hbMenuAction('wallet')">
+                <div class="hb-item-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <defs><linearGradient id="hbG3" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#FFE9B8"/><stop offset="100%" stop-color="#E8A94B"/></linearGradient></defs>
+                        <rect x="2" y="6" width="20" height="14" rx="3" stroke="url(#hbG3)" stroke-width="1.6"/>
+                        <path d="M16 13a1 1 0 110 2 1 1 0 010-2z" fill="url(#hbG3)"/>
+                        <path d="M2 10h20" stroke="url(#hbG3)" stroke-width="1.6"/>
+                    </svg>
+                </div>
+                <div class="hb-item-text">
+                    <div class="hb-item-title">کیف پول</div>
+                    <div class="hb-item-desc">موجودی، واریز و برداشت</div>
+                </div>
+                <div class="hb-item-arrow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18l-6-6 6-6" stroke="rgba(255,255,255,0.6)" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+            <!-- پروفایل -->
+            <div class="hb-menu-item" onclick="hbMenuAction('profile')">
+                <div class="hb-item-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <defs><linearGradient id="hbG4" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#FFE9B8"/><stop offset="100%" stop-color="#E8A94B"/></linearGradient></defs>
+                        <circle cx="12" cy="8" r="4" stroke="url(#hbG4)" stroke-width="1.6"/>
+                        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="url(#hbG4)" stroke-width="1.6" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="hb-item-text">
+                    <div class="hb-item-title">پروفایل</div>
+                    <div class="hb-item-desc">ویرایش اطلاعات کاربری</div>
+                </div>
+                <div class="hb-item-arrow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18l-6-6 6-6" stroke="rgba(255,255,255,0.6)" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="hb-divider"></div>
+            <!-- پنل مدیریت -->
+            <div class="hb-menu-item gold" onclick="openAdminPass()">
+                <div class="hb-item-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <defs><linearGradient id="hbGAdmin" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#FFE9B8"/><stop offset="100%" stop-color="#E8A94B"/></linearGradient></defs>
+                        <rect x="5" y="11" width="14" height="10" rx="2" stroke="url(#hbGAdmin)" stroke-width="1.6"/>
+                        <path d="M8 11V7a4 4 0 118 0v4" stroke="url(#hbGAdmin)" stroke-width="1.6" stroke-linecap="round"/>
+                        <circle cx="12" cy="16" r="1.5" fill="url(#hbGAdmin)"/>
+                    </svg>
+                </div>
+                <div class="hb-item-text">
+                    <div class="hb-item-title">پنل مدیریت</div>
+                    <div class="hb-item-desc">مدیریت کاربران و سیستم</div>
+                </div>
+                <div class="hb-item-arrow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18l-6-6 6-6" stroke="rgba(255,233,184,0.8)" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="hb-divider"></div>
+            <!-- تماس -->
+            <div class="hb-menu-item" onclick="closeHbMenu()">
+                <div class="hb-item-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.82 19.79 19.79 0 01.12 2.22 2 2 0 012.1.04h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z" stroke="rgba(255,255,255,0.45)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="hb-item-text">
+                    <div class="hb-item-title">پشتیبانی</div>
+                    <div class="hb-item-desc">۲۴ ساعته در خدمت شما</div>
+                </div>
+                <div class="hb-item-arrow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18l-6-6 6-6" stroke="rgba(255,255,255,0.6)" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+            <!-- درباره -->
+            <div class="hb-menu-item" onclick="closeHbMenu()">
+                <div class="hb-item-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.45)" stroke-width="1.6"/>
+                        <path d="M12 8v1M12 11v5" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="hb-item-text">
+                    <div class="hb-item-title">درباره اپ</div>
+                    <div class="hb-item-desc">نسخه ۱.۰.۰ | AURA</div>
+                </div>
+                <div class="hb-item-arrow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18l-6-6 6-6" stroke="rgba(255,255,255,0.6)" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== پنل رمز ادمین ===== -->
+<div class="admin-pass-overlay" id="adminPassOverlay">
+    <div class="admin-pass-bg" onclick="closeAdminPass()"></div>
+    <div class="admin-pass-card">
+        <div class="admin-pass-icon" id="adminPassIcon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                <defs><linearGradient id="passG" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#FFE9B8"/><stop offset="100%" stop-color="#E8A94B"/></linearGradient></defs>
+                <rect x="5" y="11" width="14" height="10" rx="2" stroke="url(#passG)" stroke-width="1.6"/>
+                <path d="M8 11V7a4 4 0 118 0v4" stroke="url(#passG)" stroke-width="1.6" stroke-linecap="round"/>
+                <circle cx="12" cy="16" r="1.5" fill="url(#passG)"/>
+            </svg>
+        </div>
+        <div class="admin-pass-title">پنل مدیریت</div>
+        <div class="admin-pass-sub">رمز عبور ۶ رقمی خود را وارد کنید</div>
+        <div class="admin-pass-dots" id="adminPassDots">
+            <div class="admin-pass-dot" id="dot0"></div>
+            <div class="admin-pass-dot" id="dot1"></div>
+            <div class="admin-pass-dot" id="dot2"></div>
+            <div class="admin-pass-dot" id="dot3"></div>
+            <div class="admin-pass-dot" id="dot4"></div>
+            <div class="admin-pass-dot" id="dot5"></div>
+        </div>
+        <div class="admin-pass-keypad">
+            <div class="admin-key-btn" onclick="adminKeyPress('1')">۱</div>
+            <div class="admin-key-btn" onclick="adminKeyPress('2')">۲</div>
+            <div class="admin-key-btn" onclick="adminKeyPress('3')">۳</div>
+            <div class="admin-key-btn" onclick="adminKeyPress('4')">۴</div>
+            <div class="admin-key-btn" onclick="adminKeyPress('5')">۵</div>
+            <div class="admin-key-btn" onclick="adminKeyPress('6')">۶</div>
+            <div class="admin-key-btn" onclick="adminKeyPress('7')">۷</div>
+            <div class="admin-key-btn" onclick="adminKeyPress('8')">۸</div>
+            <div class="admin-key-btn" onclick="adminKeyPress('9')">۹</div>
+            <div class="admin-key-btn del-btn" onclick="closeAdminPass()" style="font-size:13px;color:rgba(255,80,60,0.9)">انصراف</div>
+            <div class="admin-key-btn" onclick="adminKeyPress('0')">۰</div>
+            <div class="admin-key-btn del-btn" onclick="adminKeyDel()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M21 4H8l-7 8 7 8h13a2 2 0 002-2V6a2 2 0 00-2-2z" stroke="rgba(255,80,60,0.8)" stroke-width="1.6" stroke-linejoin="round"/>
+                    <line x1="18" y1="9" x2="12" y2="15" stroke="rgba(255,80,60,0.8)" stroke-width="1.6" stroke-linecap="round"/>
+                    <line x1="12" y1="9" x2="18" y2="15" stroke="rgba(255,80,60,0.8)" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+        <div class="admin-key-err" id="adminPassErr">رمز اشتباه است. مجدداً تلاش کنید</div>
+    </div>
+</div>
+
+<!-- ===== پنل مدیریت ===== -->
+<div class="admin-panel-overlay" id="adminPanelOverlay">
+    <div class="admin-panel-wrap">
+        <div class="admin-panel-header">
+            <div class="admin-close-btn" onclick="closeAdminPanel()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="admin-panel-title-wrap">
+                <div class="admin-panel-title">پنل مدیریت</div>
+                <div class="admin-panel-title-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                        <defs><linearGradient id="adminTitleG" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#FFE9B8"/><stop offset="100%" stop-color="#E8A94B"/></linearGradient></defs>
+                        <rect x="5" y="11" width="14" height="10" rx="2" stroke="url(#adminTitleG)" stroke-width="1.6"/>
+                        <path d="M8 11V7a4 4 0 118 0v4" stroke="url(#adminTitleG)" stroke-width="1.6" stroke-linecap="round"/>
+                        <circle cx="12" cy="16" r="1.5" fill="url(#adminTitleG)"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- تب‌ها -->
+        <div class="admin-tabs">
+            <div class="admin-tab active" onclick="switchAdminTab('wallet-manage', this)">کیف پول</div>
+            <div class="admin-tab" onclick="switchAdminTab('stats', this)">آمار</div>
+            <div class="admin-tab" onclick="switchAdminTab('games-manage', this)">بازی‌ها</div>
+            <div class="admin-tab" onclick="switchAdminTab('users', this)">کاربران</div>
+        </div>
+
+        <!-- تب کیف پول -->
+        <div class="admin-tab-content active" id="tab-wallet-manage">
+            <div class="admin-card">
+                <div class="admin-card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <defs><linearGradient id="atG1" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#FFE9B8"/><stop offset="100%" stop-color="#E8A94B"/></linearGradient></defs>
+                        <circle cx="12" cy="12" r="9" stroke="url(#atG1)" stroke-width="1.5"/>
+                        <path d="M12 8v8M8 12h8" stroke="url(#atG1)" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                    افزودن موجودی به کاربر
+                </div>
+                <div class="admin-search-wrap">
+                    <input class="admin-search-input" type="text" id="adminWalletUser" placeholder="نام کاربری یا شماره موبایل" oninput="adminSearchUser(this.value)">
+                    <div class="admin-search-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <circle cx="11" cy="11" r="7" stroke="rgba(255,255,255,0.6)" stroke-width="1.6"/>
+                            <path d="M20 20l-4-4" stroke="rgba(255,255,255,0.6)" stroke-width="1.6" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <!-- نتایج جستجو -->
+                <div id="adminUserResults">
+                    <!-- کارت‌های کاربران توسط AppState.syncAdminUserCards() ساخته می‌شن -->
+                </div>
+            </div>
+
+            <!-- فرم شارژ -->
+            <div class="admin-card" id="adminWalletForm" style="display:none;">
+                <div class="admin-card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <defs><linearGradient id="atG2" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#FFE9B8"/><stop offset="100%" stop-color="#E8A94B"/></linearGradient></defs>
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="url(#atG2)" stroke-width="1.6" stroke-linecap="round"/>
+                        <circle cx="12" cy="7" r="4" stroke="url(#atG2)" stroke-width="1.6"/>
+                    </svg>
+                    کاربر انتخاب‌شده: <span id="selectedUserName" style="color:#FFE9B8;"></span>
+                </div>
+                <div style="background:rgba(255,233,184,0.06);border:1px solid rgba(255,233,184,0.2);border-radius:14px;padding:14px 16px;margin-bottom:16px;direction:rtl;">
+                    <div style="font-family:Vazirmatn,sans-serif;font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:4px;">موجودی فعلی:</div>
+                    <div id="selectedUserBalance" style="font-family:Estedad,sans-serif;font-weight:800;font-size:24px;color:#FFE9B8;text-shadow:0 0 12px rgba(232,169,75,0.5);"></div>
+                    <div style="font-size:11px;color:rgba(255,233,184,0.5);font-family:Vazirmatn,sans-serif;">تومان</div>
+                </div>
+                <div class="admin-input-wrap" style="margin-bottom:12px;">
+                    <label class="admin-input-label">مبلغ شارژ (تومان)</label>
+                    <input class="admin-input" type="number" id="adminChargeAmount" placeholder="مثال: 500000">
+                </div>
+                <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;direction:rtl;">
+                    <div onclick="setAdminCharge(50000)" style="flex:1;min-width:60px;padding:9px 6px;border-radius:12px;text-align:center;font-family:Estedad,sans-serif;font-weight:700;font-size:12px;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);cursor:pointer;transition:all 0.2s;">۵۰ هزار</div>
+                    <div onclick="setAdminCharge(100000)" style="flex:1;min-width:60px;padding:9px 6px;border-radius:12px;text-align:center;font-family:Estedad,sans-serif;font-weight:700;font-size:12px;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);cursor:pointer;transition:all 0.2s;">۱۰۰ هزار</div>
+                    <div onclick="setAdminCharge(500000)" style="flex:1;min-width:60px;padding:9px 6px;border-radius:12px;text-align:center;font-family:Estedad,sans-serif;font-weight:700;font-size:12px;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);cursor:pointer;transition:all 0.2s;">۵۰۰ هزار</div>
+                    <div onclick="setAdminCharge(1000000)" style="flex:1;min-width:60px;padding:9px 6px;border-radius:12px;text-align:center;font-family:Estedad,sans-serif;font-weight:700;font-size:12px;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);cursor:pointer;transition:all 0.2s;">۱ میلیون</div>
+                </div>
+                <div style="display:flex;gap:10px;">
+                    <button class="admin-full-btn gold" style="flex:2;" onclick="adminChargeWallet()">افزودن موجودی</button>
+                    <button class="admin-full-btn" style="flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.65);" onclick="cancelAdminUser()">انصراف</button>
+                </div>
+            </div>
+
+            <!-- تراکنش‌های اخیر ادمین -->
+            <div class="admin-card">
+                <div class="admin-card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 12l2 2 4-4" stroke="rgba(255,255,255,0.5)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="3" y="3" width="18" height="18" rx="4" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+                    </svg>
+                    آخرین تراکنش‌های شارژ
+                </div>
+                <div id="adminTxList">
+                    <div class="admin-tx-row">
+                        <div class="admin-tx-dot in"></div>
+                        <div class="admin-tx-info">
+                            <div class="admin-tx-name">سلطان کانف</div>
+                            <div class="admin-tx-time">امروز ۱۴:۳۲</div>
+                        </div>
+                        <div class="admin-tx-amount in">+۵۰۰,۰۰۰</div>
+                    </div>
+                    <div class="admin-tx-row">
+                        <div class="admin-tx-dot in"></div>
+                        <div class="admin-tx-info">
+                            <div class="admin-tx-name">جناب آقای عباسی بزرگ</div>
+                            <div class="admin-tx-time">دیروز ۱۸:۱۵</div>
+                        </div>
+                        <div class="admin-tx-amount in">+۱,۰۰۰,۰۰۰</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- تب آمار -->
+        <div class="admin-tab-content" id="tab-stats">
+            <div class="admin-stats-grid">
+                <div class="admin-stat-item">
+                    <div class="admin-stat-value" id="statUsers">۳</div>
+                    <div class="admin-stat-label">کل کاربران</div>
+                </div>
+                <div class="admin-stat-item">
+                    <div class="admin-stat-value">۲</div>
+                    <div class="admin-stat-label">بازی فعال</div>
+                </div>
+                <div class="admin-stat-item">
+                    <div class="admin-stat-value" id="statDeposits">۲</div>
+                    <div class="admin-stat-label">شارژ امروز</div>
+                </div>
+                <div class="admin-stat-item">
+                    <div class="admin-stat-value" id="statTotalBalance">۱.۵M</div>
+                    <div class="admin-stat-label">کل موجودی</div>
+                </div>
+            </div>
+            <div class="admin-card">
+                <div class="admin-card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 20V10M12 20V4M6 20v-6" stroke="rgba(255,255,255,0.5)" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                    موجودی کاربران
+                </div>
+                <div id="usersBalanceList">
+                    <!-- توسط AppState.syncAdminBalanceList() پر می‌شه -->
+                </div>
+            </div>
+        </div>
+
+        <!-- تب بازی‌ها -->
+        <div class="admin-tab-content" id="tab-games-manage">
+            <div class="admin-card">
+                <div class="admin-card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="8" height="8" rx="2" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+                        <rect x="13" y="3" width="8" height="8" rx="2" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+                        <rect x="3" y="13" width="8" height="8" rx="2" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+                        <rect x="13" y="13" width="8" height="8" rx="2" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+                    </svg>
+                    مدیریت بازی‌ها
+                </div>
+                <div class="admin-game-row">
+                    <div class="admin-game-flags">
+                        <img class="admin-game-flag" src="https://uploadkon.ir/uploads/57a527_26Picsart-26-06-27-10-20-45-070.png">
+                        <span style="font-size:10px;color:rgba(255,255,255,0.35);">VS</span>
+                        <img class="admin-game-flag" src="https://uploadkon.ir/uploads/df7727_26Picsart-26-06-27-10-20-35-087.jpg">
+                    </div>
+                    <div class="admin-game-info">
+                        <div class="admin-game-name">ایران - مصر</div>
+                        <div class="admin-game-score">۱ - ۱</div>
+                    </div>
+                    <button class="admin-status-toggle ended" id="game1Toggle" onclick="toggleGameStatus(1)">پایان یافته</button>
+                </div>
+                <div class="admin-game-row">
+                    <div class="admin-game-flags">
+                        <img class="admin-game-flag" src="https://uploadkon.ir/uploads/e5f927_26Picsart-26-06-27-16-32-50-395.jpg">
+                        <span style="font-size:10px;color:rgba(255,255,255,0.35);">VS</span>
+                        <img class="admin-game-flag" src="https://uploadkon.ir/uploads/7e6827_26Picsart-26-06-27-16-32-40-600.jpg">
+                    </div>
+                    <div class="admin-game-info">
+                        <div class="admin-game-name">برزیل - ژاپن</div>
+                        <div class="admin-game-score">در حال بازی</div>
+                    </div>
+                    <button class="admin-status-toggle live" id="game2Toggle" onclick="toggleGameStatus(2)">زنده</button>
+                </div>
+            </div>
+            <div class="admin-card">
+                <div class="admin-card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+                        <path d="M12 8v8M8 12h8" stroke="rgba(255,255,255,0.5)" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                    افزودن بازی جدید
+                </div>
+                <div class="admin-input-wrap" style="margin-bottom:10px;">
+                    <label class="admin-input-label">تیم اول</label>
+                    <input class="admin-input" type="text" id="newGame1" placeholder="مثال: ایران">
+                </div>
+                <div class="admin-input-wrap" style="margin-bottom:14px;">
+                    <label class="admin-input-label">تیم دوم</label>
+                    <input class="admin-input" type="text" id="newGame2" placeholder="مثال: برزیل">
+                </div>
+                <button class="admin-full-btn gold" onclick="addNewGame()">افزودن بازی</button>
+            </div>
+        </div>
+
+        <!-- تب کاربران -->
+        <div class="admin-tab-content" id="tab-users">
+            <div class="admin-card">
+                <div class="admin-card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+                        <circle cx="9" cy="7" r="4" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+                        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    لیست کاربران
+                </div>
+                <div id="allUsersList">
+                    <!-- لیست کاربران توسط AppState.renderUserLists() ساخته می‌شه -->
+                </div>
+            </div>
+            <div class="admin-card">
+                <div class="admin-card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+                        <path d="M12 8v8M8 12h8" stroke="rgba(255,255,255,0.5)" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                    افزودن کاربر جدید
+                </div>
+                <div class="admin-input-wrap" style="margin-bottom:10px;">
+                    <label class="admin-input-label">نام کاربری</label>
+                    <input class="admin-input" type="text" id="newUserName" placeholder="نام کامل">
+                </div>
+                <div class="admin-input-wrap" style="margin-bottom:14px;">
+                    <label class="admin-input-label">شماره موبایل</label>
+                    <input class="admin-input" type="tel" id="newUserPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹">
+                </div>
+                <button class="admin-full-btn green" onclick="addNewUser()">ثبت کاربر جدید</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- تست پیام ادمین -->
+<div class="admin-toast" id="adminToast">عملیات با موفقیت انجام شد ✓</div>
+
+<script>
+// ===== همبرگری =====
+function toggleHbMenu(){
+    const overlay = document.getElementById('hbMenuOverlay');
+    const btn = document.getElementById('hamburgerBtn');
+    const isOpen = overlay.classList.contains('open');
+    if(isOpen){ closeHbMenu(); }
+    else{
+        overlay.classList.add('open');
+        btn.classList.add('open');
+        document.getElementById('hbBadge').style.display = 'none';
+    }
+}
+function closeHbMenu(){
+    document.getElementById('hbMenuOverlay').classList.remove('open');
+    document.getElementById('hamburgerBtn').classList.remove('open');
+}
+function hbMenuAction(id){
+    closeHbMenu();
+    setTimeout(()=>{
+        if(id === 'home') window.scrollTo({top:0, behavior:'smooth'});
+        else if(id === 'bet') scrollToGames();
+        else if(id === 'wallet') openWalletPage();
+        else if(id === 'profile') openProfile();
+    }, 200);
+}
+
+// ===== رمز ادمین =====
+let adminPassCode = '';
+const ADMIN_PASSWORD = '676715';
+
+function openAdminPass(){
+    closeHbMenu();
+    adminPassCode = '';
+    updatePassDots();
+    document.getElementById('adminPassErr').classList.remove('show');
+    document.getElementById('adminPassIcon').classList.remove('shake');
+    document.getElementById('adminPassOverlay').classList.add('open');
+}
+function closeAdminPass(){
+    document.getElementById('adminPassOverlay').classList.remove('open');
+    adminPassCode = '';
+    updatePassDots();
+}
+function adminKeyPress(num){
+    if(adminPassCode.length >= 6) return;
+    adminPassCode += num;
+    updatePassDots();
+    if(adminPassCode.length === 6){
+        setTimeout(checkAdminPass, 150);
+    }
+}
+function adminKeyDel(){
+    adminPassCode = adminPassCode.slice(0, -1);
+    updatePassDots();
+}
+function updatePassDots(){
+    for(let i=0;i<6;i++){
+        const dot = document.getElementById('dot'+i);
+        dot.classList.remove('filled','error');
+        if(i < adminPassCode.length) dot.classList.add('filled');
+    }
+}
+function checkAdminPass(){
+    if(adminPassCode === ADMIN_PASSWORD){
+        document.getElementById('adminPassOverlay').classList.remove('open');
+        setTimeout(()=>{
+            document.getElementById('adminPanelOverlay').classList.add('open');
+        }, 300);
+    } else {
+        // خطا
+        const icon = document.getElementById('adminPassIcon');
+        icon.classList.add('shake');
+        document.getElementById('adminPassErr').classList.add('show');
+        for(let i=0;i<6;i++){
+            const dot = document.getElementById('dot'+i);
+            dot.classList.remove('filled');
+            dot.classList.add('error');
+        }
+        setTimeout(()=>{
+            adminPassCode = '';
+            updatePassDots();
+            icon.classList.remove('shake');
+            document.getElementById('adminPassErr').classList.remove('show');
+        }, 1600);
+    }
+}
+
+// ===== پنل ادمین =====
+function closeAdminPanel(){
+    document.getElementById('adminPanelOverlay').classList.remove('open');
+}
+function switchAdminTab(tabId, el){
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-'+tabId).classList.add('active');
+}
+
+// ===== سیستم مرکزی داده‌ها (shared state) =====
+// این آبجکت منبع اصلی همه اطلاعات کاربران است
+// وقتی هر چیزی تغییر کنه، باید از طریق این آبجکت باشه
+const AppState = {
+    currentUser: null, // کاربر لاگین‌شده فعلی
+    users: {
+        'سلطان کانف': { phone: '09123456789', balance: 467000, status: 'فعال' },
+        'خاله ۶۰۰':  { phone: '09187654321', balance: 125000, status: 'فعال' },
+        'جناب آقای عباسی بزرگ': { phone: '09351234567', balance: 900000, status: 'فعال' },
+    },
+
+    // افزودن موجودی به یک کاربر - همه جای UI آپدیت میشه
+    addBalance(name, amount){
+        if(!this.users[name]) return false;
+        this.users[name].balance += amount;
+        this.syncUI();
+        return true;
+    },
+
+    // ثبت کاربر جدید - به پنل ادمین و همه لیست‌ها اضافه میشه
+    registerUser(name, phone){
+        if(this.users[name]) return false;
+        this.users[name] = { phone, balance: 0, status: 'جدید' };
+        this.renderUserLists();
+        this.syncUI();
+        return true;
+    },
+
+    // لاگین کاربر
+    loginUser(name){
+        if(!this.users[name]) return false;
+        this.currentUser = name;
+        this.syncWalletUI();
+        return true;
+    },
+
+    // همگام‌سازی کامل UI
+    syncUI(){
+        this.syncAdminUserCards();
+        this.syncAdminBalanceList();
+        this.syncAdminStats();
+        this.syncWalletUI();
+    },
+
+    // آپدیت کارت‌های کاربران در پنل شارژ (adminUserResults)
+    syncAdminUserCards(){
+        const container = document.getElementById('adminUserResults');
+        if(!container) return;
+        container.innerHTML = '';
+        Object.keys(this.users).forEach(name => {
+            const u = this.users[name];
+            const card = document.createElement('div');
+            card.className = 'admin-user-card';
+            card.style.cursor = 'pointer';
+            card.onclick = () => selectAdminUser(name, u.phone, u.balance);
+            card.innerHTML = `
+                <div class="admin-user-avatar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="8" r="4" stroke="rgba(255,233,184,0.7)" stroke-width="1.4"/>
+                        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="rgba(255,233,184,0.7)" stroke-width="1.4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="admin-user-info">
+                    <div class="admin-user-name">${name}</div>
+                    <div class="admin-user-meta">${u.phone}</div>
+                </div>
+                <div style="text-align:left;">
+                    <div class="admin-user-balance">${u.balance.toLocaleString('fa-IR')}</div>
+                    <div class="admin-user-balance-label">تومان</div>
+                </div>`;
+            container.appendChild(card);
+        });
+    },
+
+    // آپدیت لیست کامل کاربران (تب کاربران)
+    renderUserLists(){
+        const list = document.getElementById('allUsersList');
+        if(!list) return;
+        list.innerHTML = '';
+        Object.keys(this.users).forEach(name => {
+            const u = this.users[name];
+            const card = document.createElement('div');
+            card.className = 'admin-user-card';
+            card.innerHTML = `
+                <div class="admin-user-avatar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="8" r="4" stroke="rgba(255,233,184,0.7)" stroke-width="1.4"/>
+                        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="rgba(255,233,184,0.7)" stroke-width="1.4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="admin-user-info">
+                    <div class="admin-user-name">${name}</div>
+                    <div class="admin-user-meta">${u.phone} · ${u.status}</div>
+                </div>
+                <div style="text-align:left;">
+                    <div class="admin-user-balance" id="ubal_${name}">${u.balance.toLocaleString('fa-IR')}</div>
+                    <div class="admin-user-balance-label">تومان</div>
+                </div>`;
+            list.appendChild(card);
+        });
+    },
+
+    // آپدیت لیست موجودی در تب آمار
+    syncAdminBalanceList(){
+        const bl = document.getElementById('usersBalanceList');
+        if(!bl) return;
+        bl.innerHTML = '';
+        Object.keys(this.users).forEach(name => {
+            const u = this.users[name];
+            const row = document.createElement('div');
+            row.className = 'admin-tx-row';
+            row.innerHTML = `
+                <div class="admin-tx-dot in"></div>
+                <div class="admin-tx-info"><div class="admin-tx-name">${name}</div></div>
+                <div class="admin-tx-amount in" id="bal_${name}">${u.balance.toLocaleString('fa-IR')}</div>`;
+            bl.appendChild(row);
+        });
+    },
+
+    // آپدیت آمار کلی
+    syncAdminStats(){
+        const count = Object.keys(this.users).length;
+        const el = document.getElementById('statUsers');
+        if(el) el.textContent = count;
+        const total = Object.values(this.users).reduce((s,u)=>s+u.balance,0);
+        const elT = document.getElementById('statTotalBalance');
+        if(elT) elT.textContent = total >= 1000000 ? (total/1000000).toFixed(1)+'M' : total.toLocaleString('fa-IR');
+    },
+
+    // آپدیت کیف پول کاربر لاگین‌شده
+    syncWalletUI(){
+        if(!this.currentUser || !this.users[this.currentUser]) return;
+        const bal = this.users[this.currentUser].balance;
+        const el = document.querySelector('.wallet-balance-amount');
+        if(el) el.textContent = bal.toLocaleString('fa-IR');
+        const el2 = document.querySelector('#walletOverlay .wallet-balance-row strong');
+        if(el2) el2.textContent = bal.toLocaleString('fa-IR') + ' تومان';
+    }
+};
+
+// برای سازگاری با کد قدیمی
+const users = AppState.users;
+let selectedUser = null;
+
+function adminSearchUser(val){
+    const rows = document.querySelectorAll('#adminUserResults .admin-user-card');
+    rows.forEach(r => {
+        const name = r.querySelector('.admin-user-name').textContent;
+        const meta = r.querySelector('.admin-user-meta') ? r.querySelector('.admin-user-meta').textContent : '';
+        r.style.display = (val === '' || name.includes(val) || meta.includes(val)) ? '' : 'none';
+    });
+}
+
+// ===== init - بارگذاری اولیه =====
+document.addEventListener('DOMContentLoaded', function(){
+    AppState.syncAdminUserCards();
+    AppState.renderUserLists();
+    AppState.syncAdminBalanceList();
+    AppState.syncAdminStats();
+    // کاربر پیشفرض اول رو لاگین کن
+    AppState.loginUser('سلطان کانف');
+});
+function selectAdminUser(name, phone, balance){
+    selectedUser = name;
+    // موجودی را از AppState بخون (ممکنه آپدیت شده باشه)
+    const currentBal = AppState.users[name] ? AppState.users[name].balance : balance;
+    document.getElementById('selectedUserName').textContent = name;
+    document.getElementById('selectedUserBalance').textContent = currentBal.toLocaleString('fa-IR');
+    document.getElementById('adminWalletForm').style.display = 'block';
+    document.getElementById('adminWalletForm').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function cancelAdminUser(){
+    selectedUser = null;
+    document.getElementById('adminWalletForm').style.display = 'none';
+    document.getElementById('adminChargeAmount').value = '';
+}
+function setAdminCharge(val){
+    document.getElementById('adminChargeAmount').value = val;
+}
+function adminChargeWallet(){
+    if(!selectedUser){ showAdminToast('کاربری انتخاب نشده', true); return; }
+    const amount = parseInt(document.getElementById('adminChargeAmount').value);
+    if(!amount || amount <= 0){ showAdminToast('مبلغ معتبر وارد کنید', true); return; }
+
+    // آپدیت موجودی از طریق AppState - همه جا sync میشه
+    AppState.addBalance(selectedUser, amount);
+    const newBal = AppState.users[selectedUser].balance;
+    document.getElementById('selectedUserBalance').textContent = newBal.toLocaleString('fa-IR');
+
+    // اضافه کردن به لیست تراکنش
+    const txList = document.getElementById('adminTxList');
+    const now = new Date();
+    const timeStr = now.getHours() + ':' + String(now.getMinutes()).padStart(2,'0');
+    const tx = document.createElement('div');
+    tx.className = 'admin-tx-row';
+    tx.innerHTML = `<div class="admin-tx-dot in"></div><div class="admin-tx-info"><div class="admin-tx-name">${selectedUser}</div><div class="admin-tx-time">همین الان ${timeStr}</div></div><div class="admin-tx-amount in">+${amount.toLocaleString()}</div>`;
+    txList.insertBefore(tx, txList.firstChild);
+
+    // آپدیت عدد شارژهای امروز
+    const sd = document.getElementById('statDeposits');
+    if(sd) sd.textContent = parseInt(sd.textContent||'0') + 1;
+
+    document.getElementById('adminChargeAmount').value = '';
+    showAdminToast(`${amount.toLocaleString()} تومان به ${selectedUser} اضافه شد ✓`);
+}
+
+function refreshUserBalances(){
+    AppState.syncUI();
+}
+
+// ===== مدیریت بازی =====
+const gameStatus = { 1: 'ended', 2: 'live' };
+function toggleGameStatus(id){
+    const btn = document.getElementById('game'+id+'Toggle');
+    if(gameStatus[id] === 'live'){
+        gameStatus[id] = 'ended';
+        btn.textContent = 'پایان یافته';
+        btn.className = 'admin-status-toggle ended';
+        showAdminToast('بازی پایان یافته ✓');
+    } else {
+        gameStatus[id] = 'live';
+        btn.textContent = 'زنده';
+        btn.className = 'admin-status-toggle live';
+        showAdminToast('بازی به حالت زنده تغییر کرد ✓');
+    }
+}
+function addNewGame(){
+    const t1 = document.getElementById('newGame1').value.trim();
+    const t2 = document.getElementById('newGame2').value.trim();
+    if(!t1 || !t2){ showAdminToast('نام هر دو تیم را وارد کنید', true); return; }
+    document.getElementById('newGame1').value = '';
+    document.getElementById('newGame2').value = '';
+    showAdminToast(`بازی ${t1} - ${t2} اضافه شد ✓`);
+}
+
+// ===== افزودن کاربر از پنل ادمین =====
+function addNewUser(){
+    const name = document.getElementById('newUserName').value.trim();
+    const phone = document.getElementById('newUserPhone').value.trim();
+    if(!name || !phone){ showAdminToast('اطلاعات ناقص است', true); return; }
+    if(AppState.users[name]){ showAdminToast('این کاربر قبلاً ثبت شده', true); return; }
+    AppState.registerUser(name, phone);
+    document.getElementById('newUserName').value = '';
+    document.getElementById('newUserPhone').value = '';
+    showAdminToast(`کاربر ${name} ثبت شد ✓`);
+}
+
+// ===== تست پیام =====
+function showAdminToast(msg, isError=false){
+    const t = document.getElementById('adminToast');
+    t.textContent = msg;
+    t.className = 'admin-toast' + (isError ? ' error' : '') + ' show';
+    setTimeout(()=> t.classList.remove('show'), 2800);
+}
+</script>
+
+
+<!-- ===== صفحه نتایج ===== -->
+<div class="results-overlay" id="resultsOverlay" onclick="closeResultsIfBg(event)">
+    <div class="results-sheet">
+        <div class="results-handle"></div>
+        <div class="results-header">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <defs><linearGradient id="resG" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#FFE9B8"/><stop offset="100%" stop-color="#E8A94B"/></linearGradient></defs>
+                <path d="M9 12l2 2 4-4" stroke="url(#resG)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="3" y="3" width="18" height="18" rx="4" stroke="url(#resG)" stroke-width="1.6"/>
+            </svg>
+            <h2>نتایج</h2>
+        </div>
+        <div id="resultsContent"></div>
+    </div>
+</div>
+
+<script>
+// ===== آپلود عکس پروفایل =====
+function handleAvatarUpload(event){
+    const file = event.target.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/')){
+        alert('لطفاً یک فایل تصویری انتخاب کنید');
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(e){
+        const img = document.getElementById('avatarImg');
+        const svg = document.getElementById('avatarSvg');
+        img.src = e.target.result;
+        img.style.display = 'block';
+        svg.style.display = 'none';
+        document.getElementById('avatarHint').textContent = 'عکس تغییر کرد ✓';
+        // ذخیره در حافظه
+        window._profileAvatar = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+// ===== محدودیت شماره موبایل ۱۱ رقم =====
+function limitPhone(input){
+    // فقط اعداد نگه دار
+    let val = input.value.replace(/[^0-9]/g, '');
+    if(val.length > 11) val = val.slice(0, 11);
+    input.value = val;
+}
+
+// ===== ذخیره پروفایل و ثبت‌نام کاربر =====
+function saveProfile(){
+    const name = document.getElementById('profileUsername').value.trim();
+    const phone = document.getElementById('profilePhone').value.trim();
+    if(phone.length > 0 && phone.length < 11){
+        document.getElementById('profilePhone').style.borderColor = 'rgba(255,80,60,0.6)';
+        setTimeout(()=> document.getElementById('profilePhone').style.borderColor = '', 1500);
+        return;
+    }
+    // اگه کاربر جدیده، توی AppState ثبتش کن
+    if(name && !AppState.users[name]){
+        AppState.registerUser(name, phone || '—');
+    }
+    // لاگین
+    if(name) AppState.loginUser(name);
+    if(name) window._profileName = name;
+    if(phone) window._profilePhone = phone;
+    document.getElementById('profileOverlay').classList.remove('open');
+    const t = document.getElementById('profileToast');
+    t.classList.add('show');
+    setTimeout(()=> t.classList.remove('show'), 2500);
+}
+
+// ===== داده‌های شرط‌بندی =====
+// bets: { gameId: { pick: 'برد ایران', amount: 100000, odds: 1.85 } }
+window._bets = {};
+window._gameResults = {
+    1: { team1: 'ایران', team2: 'مصر', score: '۱ - ۱', status: 'ended', winner: 'draw',
+         flag1: 'https://uploadkon.ir/uploads/57a527_26Picsart-26-06-27-10-20-45-070.png',
+         flag2: 'https://uploadkon.ir/uploads/df7727_26Picsart-26-06-27-10-20-35-087.jpg' },
+    2: { team1: 'برزیل', team2: 'ژاپن', score: '؟ - ؟', status: 'live', winner: null,
+         flag1: 'https://uploadkon.ir/uploads/e5f927_26Picsart-26-06-27-16-32-50-395.jpg',
+         flag2: 'https://uploadkon.ir/uploads/7e6827_26Picsart-26-06-27-16-32-40-600.jpg' },
+    3: { team1: '—', team2: '—', score: '؟ - ؟', status: 'upcoming', winner: null,
+         flag1: '', flag2: '' },
+    4: { team1: '—', team2: '—', score: '؟ - ؟', status: 'upcoming', winner: null,
+         flag1: '', flag2: '' },
+    5: { team1: '—', team2: '—', score: '؟ - ؟', status: 'upcoming', winner: null,
+         flag1: '', flag2: '' }
+};
+
+// ===== صفحه نتایج =====
+function openResults(){
+    renderResults();
+    document.getElementById('resultsOverlay').classList.add('open');
+}
+function closeResultsIfBg(e){
+    if(e.target === document.getElementById('resultsOverlay'))
+        document.getElementById('resultsOverlay').classList.remove('open');
+}
+function renderResults(){
+    const container = document.getElementById('resultsContent');
+    const games = window._gameResults;
+    const bets = window._bets;
+    let html = '';
+    Object.keys(games).forEach(id => {
+        const g = games[id];
+
+        // باکس‌های خالی (upcoming)
+        if(g.status === 'upcoming'){
+            html += `
+            <div class="result-card no-bet" style="opacity:0.4;border-style:dashed;border-top-style:dashed;">
+                <div class="result-top-row">
+                    <div class="result-flags">
+                        <div style="width:36px;height:24px;border-radius:5px;background:rgba(255,255,255,0.1);border:1px dashed rgba(255,255,255,0.2);"></div>
+                        <span class="result-vs">VS</span>
+                        <div style="width:36px;height:24px;border-radius:5px;background:rgba(255,255,255,0.1);border:1px dashed rgba(255,255,255,0.2);"></div>
+                    </div>
+                    <div class="result-badge no-bet">بزودی</div>
+                </div>
+                <div class="result-score" style="color:rgba(255,255,255,0.2);">— : —</div>
+                <div class="result-teams-row">
+                    <span class="result-team-name" style="color:rgba(255,255,255,0.2);">تیم اول</span>
+                    <span style="font-size:11px;color:rgba(255,255,255,0.15);">در انتظار</span>
+                    <span class="result-team-name" style="color:rgba(255,255,255,0.2);">تیم دوم</span>
+                </div>
+                <div class="result-bet-row" style="opacity:0.4;">
+                    <span class="result-bet-label">اعلام نشده</span>
+                    <span style="font-size:12px;color:rgba(255,255,255,0.2);">—</span>
+                </div>
+            </div>`;
+            return;
+        }
+
+        const bet = bets[id];
+        let badgeClass = 'no-bet';
+        let badgeText = 'شرط نبستی';
+        let cardClass = 'no-bet';
+        let earnHtml = '';
+
+        if(bet){
+            if(g.status === 'live' || g.status === 'pending'){
+                badgeClass = 'pending'; badgeText = 'در انتظار'; cardClass = 'pending';
+            } else {
+                let userWon = false;
+                if(g.winner === 'draw') userWon = false;
+                else if(bet.pick.includes(g.winner)) userWon = true;
+                if(userWon){
+                    badgeClass = 'won'; badgeText = 'بُردی! 🏆'; cardClass = 'won';
+                    const earn = Math.floor(bet.amount * bet.odds);
+                    earnHtml = `<div class="result-earn-row"><span class="result-earn-label">سود دریافتی</span><span class="result-earn-val won">+${earn.toLocaleString()} تومان</span></div>`;
+                } else {
+                    badgeClass = 'lost'; badgeText = 'باختی'; cardClass = 'lost';
+                    earnHtml = `<div class="result-earn-row lost-row"><span class="result-earn-label">مبلغ کسر‌شده</span><span class="result-earn-val lost">-${bet.amount.toLocaleString()} تومان</span></div>`;
+                }
+            }
+        }
+
+        const flagsHtml = (g.flag1 && g.flag2) ? `
+            <img class="result-flag" src="${g.flag1}">
+            <span class="result-vs">VS</span>
+            <img class="result-flag" src="${g.flag2}">` : `
+            <span style="font-size:13px;color:rgba(255,255,255,0.35);">${g.team1} VS ${g.team2}</span>`;
+
+        const betRowHtml = bet ? `
+        <div class="result-bet-row">
+            <span class="result-bet-label">شرط شما:</span>
+            <div class="result-bet-detail">
+                <span class="result-bet-pick">${bet.pick}</span>
+                <span class="result-bet-amount">${bet.amount.toLocaleString()} T</span>
+            </div>
+        </div>${earnHtml}` : `
+        <div class="result-bet-row">
+            <span class="result-bet-label">شرطی ثبت نشده</span>
+            <span style="font-size:12px;color:rgba(255,255,255,0.3);">—</span>
+        </div>`;
+
+        const statusLabel = g.status === 'live' ? '🔴 زنده' : (g.status === 'ended' ? 'پایان' : 'در انتظار');
+        html += `
+        <div class="result-card ${cardClass}">
+            <div class="result-top-row">
+                <div class="result-flags">${flagsHtml}</div>
+                <div class="result-badge ${badgeClass}">${badgeText}</div>
+            </div>
+            <div class="result-score">${g.score}</div>
+            <div class="result-teams-row">
+                <span class="result-team-name">${g.team1}</span>
+                <span style="font-size:11px;color:rgba(255,255,255,0.25);">${statusLabel}</span>
+                <span class="result-team-name">${g.team2}</span>
+            </div>
+            ${betRowHtml}
+        </div>`;
+    });
+    if(!html) html = '<div class="results-empty">بازی‌ای برای نمایش وجود ندارد</div>';
+    container.innerHTML = html;
+}
+
+// ===== ثبت شرط (به دکمه شرط ببند متصل می‌شه) =====
+function placeBet(gameId, pick, odds){
+    const amount = prompt('مبلغ شرط (تومان):');
+    if(!amount || isNaN(amount) || parseInt(amount) <= 0) return;
+    window._bets[gameId] = { pick, odds, amount: parseInt(amount) };
+    showBetConfirm(pick, amount);
+}
+function showBetConfirm(pick, amount){
+    const t = document.getElementById('profileToast');
+    t.textContent = `شرط "${pick}" به مبلغ ${parseInt(amount).toLocaleString()} تومان ثبت شد ✓`;
+    t.classList.add('show');
+    setTimeout(()=> t.classList.remove('show'), 3000);
+}
+</script>
+
 </body>
 </html>
